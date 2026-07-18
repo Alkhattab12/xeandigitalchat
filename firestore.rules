@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /sessions/{sessionId} {
+      // Visitor hanya boleh baca/tulis dokumen sesi miliknya sendiri
+      // (uid dari Firebase Anonymous Auth == sessionId).
+      allow read: if request.auth != null && request.auth.uid == sessionId;
+
+      allow create: if request.auth != null && request.auth.uid == sessionId
+                    && request.resource.data.keys().hasOnly(['name', 'createdAt', 'lastMessageAt'])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() <= 40;
+
+      allow update: if request.auth != null && request.auth.uid == sessionId
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'lastMessageAt']);
+
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if request.auth != null && request.auth.uid == sessionId;
+
+        // Visitor cuma boleh menulis pesan bersender 'visitor', tidak bisa
+        // menyamar jadi 'admin'. Balasan admin ditulis lewat Admin SDK
+        // (api/webhook.js) yang otomatis melewati rules ini.
+        allow create: if request.auth != null && request.auth.uid == sessionId
+                      && request.resource.data.sender == 'visitor'
+                      && request.resource.data.text is string
+                      && request.resource.data.text.size() > 0
+                      && request.resource.data.text.size() <= 2000;
+
+        allow update, delete: if false;
+      }
+    }
+
+    // Hanya server (Admin SDK) yang boleh akses mapping ini.
+    match /telegramMap/{mapId} {
+      allow read, write: if false;
+    }
+  }
+}

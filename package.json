@@ -1,0 +1,13 @@
+{
+  "name": "live-chat-telegram",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal live chat web widget that bridges visitors to a private Telegram chat via Firestore, two-way replies via Telegram webhook.",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0"
+  }
+}

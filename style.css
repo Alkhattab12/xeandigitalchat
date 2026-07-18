@@ -1,0 +1,223 @@
+:root {
+  --bg: #0b141a;
+  --panel: #111b21;
+  --header: #1f2c34;
+  --bubble-visitor: #005c4b;
+  --bubble-admin: #202c33;
+  --text: #e9edef;
+  --text-dim: #8696a0;
+  --accent: #00a884;
+  --danger: #f15c6d;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.hidden { display: none !important; }
+
+/* ===== Gate ===== */
+.gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.gate-card {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 32px 24px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.gate-icon { font-size: 40px; margin-bottom: 8px; }
+
+.gate-card h1 { font-size: 20px; margin: 0 0 8px; }
+
+.gate-card p { color: var(--text-dim); font-size: 14px; margin: 0 0 20px; line-height: 1.5; }
+
+.gate-card input[type="text"]:not(.hp-field) {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2a3942;
+  background: #0b141a;
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.gate-card input[type="text"]:focus { border-color: var(--accent); }
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.gate-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #04120e;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.gate-card button:active { opacity: 0.85; }
+
+.gate-error {
+  color: var(--danger);
+  font-size: 13px;
+  min-height: 18px;
+  margin-top: 12px;
+}
+
+/* ===== Chat screen ===== */
+.chat-screen {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background: var(--header);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.chat-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #04120e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.chat-header-name { font-weight: 600; font-size: 15px; }
+.chat-header-status { font-size: 12px; color: var(--text-dim); }
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 18px 18px;
+}
+
+.bubble {
+  max-width: 78%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  position: relative;
+  animation: pop 0.15s ease-out;
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bubble.visitor {
+  align-self: flex-end;
+  background: var(--bubble-visitor);
+  border-bottom-right-radius: 2px;
+}
+
+.bubble.admin {
+  align-self: flex-start;
+  background: var(--bubble-admin);
+  border-bottom-left-radius: 2px;
+}
+
+.bubble .time {
+  display: block;
+  font-size: 10.5px;
+  color: rgba(233,237,239,0.6);
+  margin-top: 2px;
+  text-align: right;
+}
+
+.bubble.pending { opacity: 0.6; }
+
+.system-note {
+  align-self: center;
+  color: var(--text-dim);
+  font-size: 12px;
+  background: rgba(255,255,255,0.05);
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--header);
+  flex-shrink: 0;
+}
+
+.composer textarea {
+  flex: 1;
+  resize: none;
+  max-height: 120px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: none;
+  background: #2a3942;
+  color: var(--text);
+  font-size: 14.5px;
+  font-family: inherit;
+  outline: none;
+}
+
+.composer button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #04120e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.composer button:disabled { opacity: 0.5; }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Live Chat</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== Gate: minta nama sebelum masuk chat ===== -->
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-icon">💬</div>
+      <h1>Mulai Chat</h1>
+      <p>Masukkan nama kamu (atau kosongkan untuk anonim), lalu mulai ngobrol. Pesanmu hanya bisa dilihat oleh Admin.</p>
+      <input id="nameInput" type="text" placeholder="Nama kamu (opsional)" maxlength="40" autocomplete="off" />
+      <!-- honeypot anti-bot, disembunyikan lewat CSS, harus tetap kosong -->
+      <input id="hp" type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" />
+      <button id="startBtn">Mulai Chat</button>
+      <p id="gateError" class="gate-error"></p>
+    </div>
+  </div>
+
+  <!-- ===== Layar Chat ===== -->
+  <div id="chatScreen" class="chat-screen hidden">
+    <header class="chat-header">
+      <div class="chat-header-avatar">A</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Admin</div>
+        <div id="statusText" class="chat-header-status">online</div>
+      </div>
+    </header>
+
+    <main id="messages" class="messages"></main>
+
+    <form id="composer" class="composer">
+      <textarea id="textInput" placeholder="Tulis pesan..." maxlength="2000" rows="1" autocomplete="off"></textarea>
+      <button id="sendBtn" type="submit" aria-label="Kirim">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <script src="firebase-config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
